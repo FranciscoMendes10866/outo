@@ -3,9 +3,10 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
-import { Home, Settings, Form } from "../screens";
+import { Home, Settings, Form, Inbox, Discover } from "../screens";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,19 +24,26 @@ export default function DashboardRoutes() {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIcon}>
-              <Entypo
-                name="home"
-                size={24}
-                color={focused ? "#2455EF" : "gray"}
-              />
-              <Text
-                style={{
-                  ...styles.tabText,
-                  color: focused ? "#2455EF" : "gray",
-                }}
-              >
-                Home
-              </Text>
+              {focused ? (
+                <Ionicons name="md-home-sharp" size={24} color="black" />
+              ) : (
+                <Ionicons name="md-home-outline" size={24} color="gray" />
+              )}
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Discover"
+        component={Discover}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View style={styles.tabIcon}>
+              {focused ? (
+                <Ionicons name="compass" size={28} color="black" />
+              ) : (
+                <Ionicons name="compass-outline" size={28} color="gray" />
+              )}
             </View>
           ),
         }}
@@ -44,9 +52,7 @@ export default function DashboardRoutes() {
         name="Form"
         component={Form}
         options={{
-          tabBarIcon: () => (
-            <FontAwesome5 name="plus" size={20} color="white" />
-          ),
+          tabBarIcon: () => <Entypo name="plus" size={24} color="gray" />,
           tabBarButton: ({ children, onPress }) => (
             <TouchableOpacity
               onPress={onPress}
@@ -57,11 +63,11 @@ export default function DashboardRoutes() {
             >
               <View
                 style={{
-                  backgroundColor: "#F23847",
+                  backgroundColor: "white",
                   height: 65,
                   width: 65,
-                  borderRadius: 8,
-                  elevation: 30
+                  borderRadius: 24,
+                  elevation: 30,
                 }}
               >
                 {children}
@@ -71,24 +77,31 @@ export default function DashboardRoutes() {
         }}
       />
       <Tab.Screen
+        name="Inbox"
+        component={Inbox}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View style={styles.tabIcon}>
+              {focused ? (
+                <FontAwesome name="inbox" size={26} color="black" />
+              ) : (
+                <Feather name="inbox" size={26} color="gray" />
+              )}
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Settings"
         component={Settings}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIcon}>
-              <Ionicons
-                name="md-settings"
-                size={24}
-                color={focused ? "#2455EF" : "gray"}
-              />
-              <Text
-                style={{
-                  ...styles.tabText,
-                  color: focused ? "#2455EF" : "gray",
-                }}
-              >
-                Settings
-              </Text>
+              {focused ? (
+                <Ionicons name="md-settings" size={24} color="black" />
+              ) : (
+                <Ionicons name="md-settings-outline" size={24} color="gray" />
+              )}
             </View>
           ),
         }}
@@ -104,16 +117,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     elevation: 30,
     backgroundColor: "white",
-    borderRadius: 8,
+    borderRadius: 60,
     height: 70,
   },
   tabIcon: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  tabText: {
-    fontSize: 12,
-    marginTop: 2,
   },
 });
